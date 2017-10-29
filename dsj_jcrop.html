@@ -1,0 +1,49 @@
+<head>
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="jquery.Jcrop.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="jquery.Jcrop.css" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+  SELECTION = ''; // x1,y1,x2,y2
+
+  ratio = $('#djimg1').width() / $('#djimg1').height();
+  $('#djimg1').Jcrop({
+    onChange: onch,
+    onSelect: onse,
+    onRelease: onre,
+    bgOpacity: .4,
+    aspectRatio: ratio,
+  });
+
+  $('#go').click(function() { alert(SELECTION); });
+
+});
+
+function onch(c) {
+  $('#ch').html('('+c.x+','+c.y+') -> ('+c.x2+','+c.y2+')  width['+c.w+'] height['+c.h+']\n');
+  SELECTION = c.x+','+c.y+','+c.x2+','+c.y2;
+};
+
+function onse(c) {
+  $('#se').html('('+c.x+','+c.y+') -> ('+c.x2+','+c.y2+')  width['+c.w+'] height['+c.h+']\n');
+  SELECTION = c.x+','+c.y+','+c.x2+','+c.y2;
+};
+
+function onre() {
+  $('#ch').html('coords cleared');
+  $('#se').html('coords cleared');
+};
+</script>
+<style> body {background-color: #cccccc;}</style>
+</head>
+<body>
+
+<div id=ch>onChange coords go here.</div>
+<div id=se>onSelect coords go here.</div>
+<button id=go>Crop</button>
+<p><img src='lkj.jpg' id=djimg1>
+
+</body>
+</html>
